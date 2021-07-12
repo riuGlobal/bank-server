@@ -80,9 +80,9 @@ export class CurrencyService {
   }
 
   public async getCurrencyForeignExchangeRates(): Promise<any> {
-    const EXCHAGE_KEY = this._configService.get<string>('EXCHANGE_KEY');
-    // const endpoint = `https://api.exchangeratesapi.io/latest?base=PLN&symbols=USD,EUR`;
-    const endpoint = `http://api.exchangeratesapi.io/latest?access_key=6d11397e6292fe931ee33fa8d5177482&symbols=USD,EUR`;
+    const EXCHANGE_KEY = this._configService.get<string>('EXCHANGE_KEY');
+    const endpoint = `http://api.exchangeratesapi.io/latest?access_key=${EXCHANGE_KEY}&symbols=USD,EUR`;
+    // const endpoint = `http://api.exchangeratesapi.io/latest?access_key=6d11397e6292fe931ee33fa8d5177482&symbols=USD,EUR`;
     return this._httpService
       .get(endpoint)
       .toPromise()
