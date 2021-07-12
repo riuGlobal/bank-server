@@ -1,4 +1,5 @@
 import { HttpService, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { PageMetaDto } from 'common/dtos';
 import { ForeignExchangeRatesNotFoundException } from 'exceptions';
 import {
@@ -13,6 +14,7 @@ export class CurrencyService {
   constructor(
     private readonly _currencyRepository: CurrencyRepository,
     private readonly _httpService: HttpService,
+    private readonly _configService: ConfigService
   ) {}
 
   public async getCurrencies(
@@ -78,8 +80,9 @@ export class CurrencyService {
   }
 
   public async getCurrencyForeignExchangeRates(): Promise<any> {
-    const endpoint = `https://api.exchangeratesapi.io/latest?base=PLN&symbols=USD,EUR`;
-
+    const EXCHAGE_KEY = this._configService.get<string>('EXCHANGE_KEY');
+    // const endpoint = `https://api.exchangeratesapi.io/latest?base=PLN&symbols=USD,EUR`;
+    const endpoint = `http://api.exchangeratesapi.io/latest?access_key=6d11397e6292fe931ee33fa8d5177482&symbols=USD,EUR`;
     return this._httpService
       .get(endpoint)
       .toPromise()
