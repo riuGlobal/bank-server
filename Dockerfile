@@ -8,8 +8,8 @@ RUN yarn install
 COPY ./ ./
 RUN npm run build
 
-FROM node:erbium-alpine
-COPY --from=base /dependencies /bank 
-WORKDIR /bank
+# FROM node:erbium-alpine
+# COPY --from=base /dependencies /bank 
+# WORKDIR /bank
 EXPOSE 4000
-CMD npm run start
+CMD npm run start:prod
