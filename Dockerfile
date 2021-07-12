@@ -1,10 +1,10 @@
-FROM node:dubnium-buster-slim as base
+FROM node:erbium-buster-slim as base
 LABEL mainteiner = 'Ricardo David Ortiz'
 WORKDIR /dependencies
 COPY package*.json ./
 RUN npm install
 
-FROM node:dubnium-alpine
+FROM node:erbium-alpine
 COPY --from=base /dependencies /bank 
 WORKDIR /bank
 COPY ./ ./
