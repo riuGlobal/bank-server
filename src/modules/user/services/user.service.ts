@@ -34,16 +34,17 @@ export class UserService {
       await this._userRepository.save(user);
 
       const createdUser = { ...userRegisterDto, user };
-
+      console.log("==1===", createdUser)
       await Promise.all([
         this._userAuthService.createUserAuth(createdUser),
         this._userConfigService.createUserConfig(createdUser),
       ]);
-
+      console.log("==2==")
       await this._billService.createAccountBill(createdUser);
-
+      console.log("==3==")
       return this.getUser({ uuid: user.uuid });
     } catch (error) {
+      console.log("===error =", error)
       throw new CreateFailedException(error);
     }
   }
